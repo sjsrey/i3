@@ -163,3 +163,11 @@ bar {
 exec setxkbmap -option ctrl:nocaps
 
 exec xautolock -detectsleep -locker 'i3lock'
+exec --no-startup-id exec ~/.dropbox-dist/dropboxd
+exec --no-startup-id clipit -d
+
+#exec --no-startup-id conky -c ~/path/to/.conkyrc
+exec --no-startup-id feh --bg-scale ~/Pictures/shrouded-wallpaper-1600x900.jpg
+bindsym Print exec scrot -e 'mv $f ~/Pictures/Screenshots'
+bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
+
