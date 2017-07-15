@@ -9,8 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
-
+set $mod Mod4
 
 exec --no-startup-id ssh-add
 exec --no-startup-id ssh-add /home/serge/.ssh/id_rsa
@@ -158,16 +157,20 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
         tray_output primary
+	font pango:DejaVu Sans Mono, Icons 8
 }
 
 exec setxkbmap -option ctrl:nocaps
 
 exec xautolock -detectsleep -locker 'i3lock'
-exec --no-startup-id exec ~/.dropbox-dist/dropboxd
+#exec --no-startup-id exec ~/.dropbox-dist/dropboxd
+exec --no-startup-id caja-dropbox start -i
 exec --no-startup-id clipit -d
+
+#exec --no-startup-id nm-applet
 
 #exec --no-startup-id conky -c ~/path/to/.conkyrc
 exec --no-startup-id feh --bg-scale ~/Pictures/shrouded-wallpaper-1600x900.jpg
 bindsym Print exec scrot -e 'mv $f ~/Pictures/Screenshots'
 bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
-
+bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
