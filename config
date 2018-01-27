@@ -16,9 +16,10 @@ set $mod Mod4
 # font pango:monospace 8
 
 # #---Basic Definitions---# #
-set $term --no-startupid st
+set $term --no-startup-id st 
 set $stoprec --no-startup-id killall ffmpeg & killall screenkey
 set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
+
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -56,8 +57,8 @@ floating_modifier $mod
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
 
-bindsym $mod+Return exec urxvt
-bindsym $mod+Shift+Return exec urxvt -e tmux
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $term -e tmux
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -183,11 +184,23 @@ mode "resize" {
 #        tray_output primary
 #}
 
+# #---Dropdown/Scratchpad Windows---# #
+# First I have a tmux window used for background scripts.
+# I'll later bind this to mod+u.
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 3
+exec --no-startup-id $term -n dropdown -e tmux
+
+
+bindsym $mod+u	[instance='dropdown'] scratchpad show
 
 # #----Letter Key Bindings---# #
 
-bindsym $mod+c	exec urxvt -e qalc
-bindsym $mod+r	exec urxvt -e ranger
+bindsym $mod+c	exec $term -e qalc
+bindsym $mod+r	exec $term -e ranger
+bindsys $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+x	exec ~/.config/i3/lock.sh
 
 # #----Recording----# #
@@ -196,30 +209,24 @@ bindsym $mod+Insert	exec $screencast
 bindsym $mod+Delete	exec $stoprec
 
 
-
-
 # #----Screenshots----# #
 
 bindsym --release Print exec "scrot -e 'mv $f /home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-desk.png'"
-#bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
 bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-sel.png'"
 #bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
 bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-win.png'"
 
 
-bindsym Print exec scrot $HOME/Pictures/ScreenShoots/`date +%Y-%m-%d_%H:%M:%S`.png
-bindsym Mod1+Print exec scrot -u $HOME/Pictures/ScreenShoots/`date +%Y-%m-%d_%H:%M:%S`.png
-bindsym Mod1+Shift+Print exec scrot -s $HOME/Pictures/ScreenShoots/`date +%Y-%m-%d_%H:%M:%S`.png
 
-exec setxkbmap -option ctrl:nocaps
-
+exec --no-startup-id setxkbmap -option ctrl:nocaps
+#
 exec --no-startup-id caja-dropbox start -i
 exec --no-startup-id clipit -d
 exec --no-startup-id xsetroot -solid "#333333"
-exec xinput set-prop 11 286 1
+#exec xinput set-prop 11 286 1
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 exec --no-startup-id "synclient PalmDetect=1"
 exec --no-startup-id "synclient TapButton1=1"
-
+#
 for_window [workspace="9"] floating enable
 
