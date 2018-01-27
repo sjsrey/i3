@@ -186,7 +186,9 @@ mode "resize" {
 
 # #----Letter Key Bindings---# #
 
+bindsym $mod+c	exec urxvt -e qalc
 bindsym $mod+r	exec urxvt -e ranger
+bindsym $mod+x	exec ~/.config/i3/lock.sh
 
 # #----Recording----# #
 bindsym $mod+Print	exec --no-startup-id screenkey
