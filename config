@@ -106,7 +106,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+#bindsym $mod+Shift+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -199,8 +199,9 @@ bindsym $mod+u	[instance='dropdown'] scratchpad show
 # #----Letter Key Bindings---# #
 
 bindsym $mod+c	exec $term -e qalc
+bindsym $mod+m  exec "emacsclient25 -c"
 bindsym $mod+r	exec $term -e ranger
-bindsys $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+x	exec ~/.config/i3/lock.sh
 
 # #----Recording----# #
@@ -225,8 +226,9 @@ exec --no-startup-id clipit -d
 exec --no-startup-id xsetroot -solid "#333333"
 #exec xinput set-prop 11 286 1
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
-exec --no-startup-id "synclient PalmDetect=1"
-exec --no-startup-id "synclient TapButton1=1"
+exec --no-startup-id synclient PalmDetect=1
+exec --no-startup-id synclient TapButton1=1
+exec --no-startup-id synclient TapButton2=3 TapButton3=2
 #
 for_window [workspace="9"] floating enable
 
