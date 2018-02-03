@@ -25,7 +25,7 @@ set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 
-font pango:nimbus sans 12
+font pango:nimbus sans 9 
 bar {
   mode dock
   position top
@@ -58,7 +58,7 @@ floating_modifier $mod
 #bindsym $mod+Return exec i3-sensible-terminal
 
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $term -e tmux
+#bindsym $mod+Shift+Return exec $term -e tmux
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -199,7 +199,7 @@ bindsym $mod+u	[instance='dropdown'] scratchpad show
 # #----Letter Key Bindings---# #
 
 bindsym $mod+c	exec $term -e qalc
-bindsym $mod+m  exec "emacsclient25 -c"
+bindsym $mod+m  exec emacsclient -c
 bindsym $mod+r	exec $term -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+x	exec ~/.config/i3/lock.sh
@@ -209,7 +209,6 @@ bindsym $mod+Print	exec --no-startup-id screenkey
 bindsym $mod+Insert	exec $screencast
 bindsym $mod+Delete	exec $stoprec
 
-
 # #----Screenshots----# #
 
 bindsym --release Print exec "scrot -e 'mv $f /home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-desk.png'"
@@ -217,11 +216,9 @@ bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%
 #bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
 bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-win.png'"
 
-
-
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 #
-exec --no-startup-id caja-dropbox start -i
+exec --no-startup-id dropbox start -i
 exec --no-startup-id clipit -d
 exec --no-startup-id xsetroot -solid "#333333"
 #exec xinput set-prop 11 286 1
@@ -231,4 +228,3 @@ exec --no-startup-id synclient TapButton1=1
 exec --no-startup-id synclient TapButton2=3 TapButton3=2
 #
 for_window [workspace="9"] floating enable
-
