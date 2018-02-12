@@ -23,6 +23,9 @@ set $torrent   :torrent
 set $irc  :irc
 set $useless  :useless
 
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 -- +10% && killall -SIGUSR1 i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -10% && killall -SIGUSR1 i3status
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # font pango:monospace 8
@@ -245,6 +248,57 @@ bindsym $mod+x	exec ~/.config/i3/lock.sh
 bindsym $mod+Print	exec --no-startup-id screenkey
 bindsym $mod+Insert	exec $screencast
 bindsym $mod+Delete	exec $stoprec
+
+# For cmus:
+set $music --no-startup-id st -e cmus
+set $pause --no-startup-id cmus-remote -u
+set $next --no-startup-id cmus-remote -n
+set $prev --no-startup-id cmus-remote -r
+set $lilfor --no-startup-id cmus-remote -k +10
+set $bigfor --no-startup-id cmus-remote -k +120
+set $lilbak --no-startup-id cmus-remote -k -10
+set $bigbak --no-startup-id cmus-remote -k -120
+set $beg --no-startup-id cmus-remote -k 00:00:00
+#
+# #FOR ALSA/AMIXER
+set $inc --no-startup-id amixer sset Master 2%+
+set $biginc --no-startup-id amixer sset Master 5%+
+set $dec --no-startup-id amixer sset Master 2%-
+set $bigdec --no-startup-id amixer sset Master 5%-
+set $mute --no-startup-id amixer sset Master toggle
+set $truemute --no-startup-id amixer sset Master mute
+set $screencast  --no-startup-id bash ~/.config/Scripts/screencast_alsa.sh
+set $audio --no-startup-id bash ~/.config/Scripts/audio_alsa.sh
+#
+# #For PULSEAUDIO/PAMIXER
+# set $inc --no-startup-id pamixer --allow-boost -i 5
+# set $biginc --no-startup-id pamixer --allow-boost -i 15
+# set $dec --no-startup-id pamixer --allow-boost -d 5
+# set $bigdec --no-startup-id pamixer --allow-boost -d 15
+# set $mute --no-startup-id pamixer --allow-boost -t
+# set $micmute --no-startup-id pamixer --allow-boost -t
+# set $truemute --no-startup-id pamixer -m
+# set $screencast  --no-startup-id bash ~/.config/Scripts/screencast_pulse.sh
+# set $audio --no-startup-id bash ~/.config/Scripts/audio_pulse.sh
+#
+#
+# #---Media Keys---# #
+#
+# # Volume keys
+bindsym $mod+plus exec $inc
+bindsym $mod+Shift+plus exec $biginc
+bindsym $mod+minus exec $dec
+bindsym $mod+Shift+minus exec $bigdec
+bindsym $mod+less exec $prev
+bindsym $mod+Shift+less exec $beg
+bindsym $mod+greater exec $next
+bindsym $mod+Shift+greater exec $next
+
+# For advancing forward/backward in an mpd song
+bindsym $mod+bracketleft exec $lilbak
+bindsym $mod+Shift+bracketleft exec $bigbak
+bindsym $mod+bracketright exec $lilfor
+bindsym $mod+Shift+bracketright exec $bigfor
 
 # rofi
 #
