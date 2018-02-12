@@ -24,22 +24,26 @@ set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
+#
 
-font pango:nimbus sans 9 
+font pango:nimbus sans, Icons 10, FontAwesome 10 
+
 bar {
   mode dock
   position top
   strip_workspace_numbers yes
   status_command i3status
+  #status_command conky -c $HOME/.config/i3/conky/conkyrc
+
   tray_output primary
   colors {
-    background #F1F2F6
-    statusline #788491
-    separator #51c4d4
-    focused_workspace  #F1F2F6 #F1F2F6 #4FC0E8
-    active_workspace   #F1F2F6 #F1F2F6 #4FC0E8
-    inactive_workspace #F1F2F6 #F1F2F6 #C1D1E0
-    urgent_workspace   #F1F2F6 #F1F2F6 #C1D1E0
+    background #222222
+    statusline #eeeeee
+    separator #666666
+    focused_workspace  #4c7899 #285577 #ffffff
+    active_workspace   #333333 #5f676a #ffffff
+    inactive_workspace #333333 #222222 #888888
+    urgent_workspace   #2f343a #900000 #ffffff
   }
 }
 
@@ -106,7 +110,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-#bindsym $mod+Shift+e layout toggle split
+bindsym $mod+Shift+s layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -196,6 +200,17 @@ exec --no-startup-id $term -n dropdown -e tmux
 
 bindsym $mod+u	[instance='dropdown'] scratchpad show
 
+# #------gaps------# #
+# i3 gaps
+#for_window [class="^.*"] border pixel 3
+new_window pixel 3
+
+# Gaps
+gaps inner 10
+gaps outer 2
+smart_gaps on
+smart_borders on
+
 # #----Letter Key Bindings---# #
 
 bindsym $mod+c	exec $term -e qalc
@@ -208,6 +223,11 @@ bindsym $mod+x	exec ~/.config/i3/lock.sh
 bindsym $mod+Print	exec --no-startup-id screenkey
 bindsym $mod+Insert	exec $screencast
 bindsym $mod+Delete	exec $stoprec
+
+# rofi
+#
+bindsym F9 exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
+bindsym F4 exec  rofi -show-icons -show window
 
 # #----Screenshots----# #
 
@@ -228,3 +248,8 @@ exec --no-startup-id synclient TapButton1=1
 exec --no-startup-id synclient TapButton2=3 TapButton3=2
 #
 for_window [workspace="9"] floating enable
+
+# #----Background----# #
+exec --no-startup-id feh --bg-scale /home/serge/Pictures/sharp_wallpaper_1920x1200.png
+exec /usr/bin/compton --config /home/serge/.config/i3/compton.conf
+
