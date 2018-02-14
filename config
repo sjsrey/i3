@@ -88,12 +88,13 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 #
 bindsym F4 exec rofi -show-icons -show window
+bindsym F9 exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
 
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+#bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -138,6 +139,10 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
+
+# #----Workspace Bindings----# #
+
+bindsym $mod+semicolon workspace next
 
 
 bindsym $mod+1 workspace $programing
@@ -227,6 +232,46 @@ bindsym $mod+Print	exec --no-startup-id screenkey
 bindsym $mod+Insert	exec $screencast
 bindsym $mod+Delete	exec $stoprec
 
+# For cmus:
+set $music --no-startup-id st -e cmus
+set $pause --no-startup-id cmus-remote -u
+set $next --no-startup-id cmus-remote -n
+set $prev --no-startup-id cmus-remote -r
+set $lilfor --no-startup-id cmus-remote -k +10
+set $bigfor --no-startup-id cmus-remote -k +120
+set $lilbak --no-startup-id cmus-remote -k -10
+set $bigbak --no-startup-id cmus-remote -k -120
+set $beg --no-startup-id cmus-remote -k 00:00:00
+#
+# #FOR ALSA/AMIXER
+set $inc --no-startup-id amixer sset Master 2%+
+set $biginc --no-startup-id amixer sset Master 5%+
+set $dec --no-startup-id amixer sset Master 2%-
+set $bigdec --no-startup-id amixer sset Master 5%-
+set $mute --no-startup-id amixer sset Master toggle
+set $truemute --no-startup-id amixer sset Master mute
+set $screencast  --no-startup-id bash ~/.config/Scripts/screencast_alsa.sh
+set $audio --no-startup-id bash ~/.config/Scripts/audio_alsa.sh
+
+
+# #---Media Keys---# #
+#
+# # Volume keys
+bindsym $mod+plus exec $inc
+bindsym $mod+Shift+plus exec $biginc
+bindsym $mod+minus exec $dec
+bindsym $mod+Shift+minus exec $bigdec
+bindsym $mod+less exec $prev
+bindsym $mod+Shift+less exec $beg
+bindsym $mod+greater exec $next
+bindsym $mod+Shift+greater exec $next
+
+# For advancing forward/backward in an mpd song
+bindsym $mod+bracketleft exec $lilbak
+bindsym $mod+Shift+bracketleft exec $bigbak
+bindsym $mod+bracketright exec $lilfor
+bindsym $mod+Shift+bracketright exec $bigfor
+
 
 # #----Screenshots----# #
 
@@ -248,3 +293,4 @@ exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 #
 for_window [workspace="9"] floating enable
 
+bindsym $mod+Shift+b exec $term -e ranger ~/Dropbox/bibliography/bibtex-pdfs
