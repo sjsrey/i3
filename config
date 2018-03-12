@@ -26,6 +26,7 @@ set $useless  :useless
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 -- +10% && killall -SIGUSR1 i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -10% && killall -SIGUSR1 i3status
 
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # font pango:monospace 8
@@ -47,7 +48,8 @@ bar {
   mode dock
   position top
   strip_workspace_numbers yes
-  status_command i3status
+  #status_command i3status
+  status_command /home/serge/anaconda3/bin/py3status -c ~/.config/i3status/config
   #status_command conky -c $HOME/.config/i3/conky/conkyrc
 
   tray_output primary
@@ -83,7 +85,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -114,7 +116,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+#bindsym $mod+h split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -140,38 +142,49 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-#bindsym $mod+1 workspace 1
-#bindsym $mod+2 workspace 2
-#bindsym $mod+3 workspace 3
-#bindsym $mod+4 workspace 4
-#bindsym $mod+5 workspace 5
-#bindsym $mod+6 workspace 6
-#bindsym $mod+7 workspace 7
-#bindsym $mod+8 workspace 8
-#bindsym $mod+9 workspace 9
-#bindsym $mod+0 workspace 10
-
-bindsym $mod+1 workspace $programing
-bindsym $mod+2 workspace $emacs
-bindsym $mod+3 workspace $files 
-bindsym $mod+4 workspace $web 
-bindsym $mod+5 workspace $pomo 
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+#bindsym $mod+1 workspace $programing
+#bindsym $mod+2 workspace $emacs
+#bindsym $mod+3 workspace $files 
+#bindsym $mod+4 workspace $web 
+#bindsym $mod+5 workspace $pomo 
+#bindsym $mod+6 workspace 6
+#bindsym $mod+7 workspace 7
+#bindsym $mod+8 workspace 8
+#bindsym $mod+9 workspace 9
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $programing
-bindsym $mod+Shift+2 move container to workspace $emacs
-bindsym $mod+Shift+3 move container to workspace $files
-bindsym $mod+Shift+4 move container to workspace $web
-bindsym $mod+Shift+5 move container to workspace $pomo
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
+
+#bindsym $mod+Shift+1 move container to workspace $programing
+#bindsym $mod+Shift+2 move container to workspace $emacs
+#bindsym $mod+Shift+3 move container to workspace $files
+#bindsym $mod+Shift+4 move container to workspace $web
+#bindsym $mod+Shift+5 move container to workspace $pomo
+#bindsym $mod+Shift+6 move container to workspace 6
+#bindsym $mod+Shift+7 move container to workspace 7
+#bindsym $mod+Shift+8 move container to workspace 8
+#bindsym $mod+Shift+9 move container to workspace 9
+#bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -238,11 +251,17 @@ smart_borders on
 
 # #----Letter Key Bindings---# #
 
+bindsym $mod+b	exec $term -e ranger /home/serge/Dropbox/bibliography/bibtex-pdfs 
 bindsym $mod+c	exec $term -e qalc
+bindsym $mod+Shift+h	exec $term -e htop
+bindsym $mod+g  exec qgis
+bindsym $mod+i	exec inkscape
+
 bindsym $mod+m  exec emacsclient -c
 bindsym $mod+r	exec $term -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+x	exec ~/.config/i3/lock.sh
+exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
 
 # #----Recording----# #
 bindsym $mod+Print	exec --no-startup-id screenkey
@@ -302,8 +321,11 @@ bindsym $mod+Shift+bracketright exec $bigfor
 
 # rofi
 #
-bindsym F9 exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
+bindsym $mod+Shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
 bindsym F4 exec  rofi -show-icons -show window
+bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 
+
+#bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" 
 
 # #----Screenshots----# #
 
