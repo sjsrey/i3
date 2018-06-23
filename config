@@ -10,7 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-
+set $m Mod1
 
 set $programing  1
 set $emacs   2
@@ -30,19 +30,19 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -10
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 # font pango:monospace 8
-
+ 
 # #---Basic Definitions---# #
-set $term --no-startup-id st 
+#set $term --no-startup-id st -f "Liberation Mono:size=12" 
+set $term --no-startup-id terminator
 set $stoprec --no-startup-id killall ffmpeg & killall screenkey
 set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
-
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
 #
 
-font pango:nimbus sans, Icons 10, FontAwesome 10 
+font pango:nimbus sans, Icons 12, FontAwesome 12 
 
 bar {
   mode dock
@@ -54,13 +54,21 @@ bar {
 
   tray_output primary
   colors {
-    background #222222
-    statusline #eeeeee
-    separator #666666
-    focused_workspace  #4c7899 #285577 #ffffff
-    active_workspace   #333333 #5f676a #ffffff
-    inactive_workspace #333333 #222222 #888888
-    urgent_workspace   #2f343a #900000 #ffffff
+    background #F1F2F6
+    statusline #788491
+    separator #51c4d4
+    focused_workspace  #F1F2F6 #F1F2F6 #4FC0E8
+    active_workspace   #F1F2F6 #F1F2F6 #4FC0E8
+    inactive_workspace #F1F2F6 #F1F2F6 #C1D1E0
+    urgent_workspace   #F1F2F6 #F1F2F6 #C1D1E0
+    #background #222222
+    #background #222222
+    #statusline #eeeeee
+    #separator #666666
+    #focused_workspace  #4c7899 #285577 #ffffff
+    #active_workspace   #333333 #5f676a #ffffff
+    #inactive_workspace #333333 #222222 #888888
+    #urgent_workspace   #2f343a #900000 #ffffff
   }
 }
 
@@ -92,7 +100,7 @@ bindsym $mod+Shift+q kill
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
+bindsym $mod+j focus left 
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
@@ -106,7 +114,7 @@ bindsym $mod+Right focus right
 # move focused window
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
+bindsym $mod+Shift+u move up
 bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
@@ -116,7 +124,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-#bindsym $mod+h split h
+bindsym $mod+h split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -127,10 +135,10 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+Shift+s layout toggle split
+bindsym $mod+t layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+#bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -216,7 +224,7 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
+ 
 #bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
@@ -253,9 +261,8 @@ smart_borders on
 
 bindsym $mod+b	exec $term -e ranger /home/serge/Dropbox/bibliography/bibtex-pdfs 
 bindsym $mod+c	exec $term -e qalc
-bindsym $mod+Shift+h	exec $term -e htop
+bindsym $mod++i	exec $term -e htop
 bindsym $mod+g  exec qgis
-bindsym $mod+i	exec inkscape
 
 bindsym $mod+m  exec emacsclient -c
 bindsym $mod+r	exec $term -e ranger
@@ -321,9 +328,19 @@ bindsym $mod+Shift+bracketright exec $bigfor
 
 # rofi
 #
-bindsym $mod+Shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
-bindsym F4 exec  rofi -show-icons -show window
+bindsym $mod+shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
+bindsym F4 exec "rofi -show-icons -show window"
+#bindsym $mod+space exec "rofi -show-icons -show window"
+
+#bindsym $m++space exec rofi -show-icons -show window
+bindsym $mod+Shift+space exec rofi -show-icons -show window
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 
+bindsym $mod+shift+w exec ~/.dotfiles/menu-surfraw
+bindsym $mod+shift+b exec ~/.dotfiles/bookmarks-surfraw
+bindsym $mod+shift+l exec ~/.dotfiles/rlocate
+bindsym $mod+shift+n exec $term -e newsbeuter
+
+
 
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" 
 
@@ -350,4 +367,3 @@ for_window [workspace="9"] floating enable
 # #----Background----# #
 exec --no-startup-id feh --bg-scale /home/serge/Pictures/sharp_wallpaper_1920x1200.png
 exec /usr/bin/compton --config /home/serge/.config/i3/compton.conf
-
