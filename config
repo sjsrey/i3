@@ -33,7 +33,9 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -10
  
 # #---Basic Definitions---# #
 #set $term --no-startup-id st -f "Liberation Mono:size=12" 
-set $term --no-startup-id terminator
+exec --no-startup-id /home/serge/bin/syncthing -no-browser
+set $term --no-startup-id gnome-terminal --hide-menubar
+#set $term --no-startup-id terminator
 set $stoprec --no-startup-id killall ffmpeg & killall screenkey
 set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
 
@@ -131,6 +133,7 @@ bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+l move workspace to output left
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -252,16 +255,17 @@ bindsym $mod+u	[instance='dropdown'] scratchpad show
 new_window pixel 3
 
 # Gaps
-gaps inner 10
-gaps outer 2
-smart_gaps on
-smart_borders on
+#gaps inner 10
+#gaps outer 2
+#smart_gaps on
+#smart_borders on
 
 # #----Letter Key Bindings---# #
 
 bindsym $mod+b	exec $term -e ranger /home/serge/Dropbox/bibliography/bibtex-pdfs 
 bindsym $mod+c	exec $term -e qalc
-bindsym $mod++i	exec $term -e htop
+bindsym $mod+e	exec $term -e emacs
+bindsym $mod+i	exec $term -e htop
 bindsym $mod+g  exec qgis
 
 bindsym $mod+m  exec emacsclient -c
@@ -319,6 +323,8 @@ bindsym $mod+less exec $prev
 bindsym $mod+Shift+less exec $beg
 bindsym $mod+greater exec $next
 bindsym $mod+Shift+greater exec $next
+bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+
 
 # For advancing forward/backward in an mpd song
 bindsym $mod+bracketleft exec $lilbak
@@ -329,7 +335,7 @@ bindsym $mod+Shift+bracketright exec $bigfor
 # rofi
 #
 bindsym $mod+shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
-bindsym F4 exec "rofi -show-icons -show window"
+#bindsym F4 exec "rofi -show-icons -show window"
 #bindsym $mod+space exec "rofi -show-icons -show window"
 
 #bindsym $m++space exec rofi -show-icons -show window
@@ -337,10 +343,7 @@ bindsym $mod+Shift+space exec rofi -show-icons -show window
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 
 bindsym $mod+shift+w exec ~/.dotfiles/menu-surfraw
 bindsym $mod+shift+b exec ~/.dotfiles/bookmarks-surfraw
-bindsym $mod+shift+l exec ~/.dotfiles/rlocate
-bindsym $mod+shift+n exec $term -e newsbeuter
-
-
+bindsym $mod+shift+n exec $term --window-with-profile=white -e newsbeuter
 
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" 
 
@@ -354,16 +357,24 @@ bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 #
 exec --no-startup-id dropbox start -i
-exec --no-startup-id clipit -d
+exec --no-startup-id clipit 
+exec --no-startup-id volumeicon
 exec --no-startup-id xsetroot -solid "#333333"
 #exec xinput set-prop 11 286 1
-exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+#exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 exec --no-startup-id synclient PalmDetect=1
 exec --no-startup-id synclient TapButton1=1
 exec --no-startup-id synclient TapButton2=3 TapButton3=2
+exec --no-startup-id synclient TouchpadOff=1
+
+# toggle trackpad on and off with mod+p
+
+bindsym $mod+p exec synclient TouchpadOff=$(( $(synclient -l | grep 'TouchpadOff' | awk -F= '{print $2}') ^1 ))
+
 #
 for_window [workspace="9"] floating enable
 
 # #----Background----# #
-exec --no-startup-id feh --bg-scale /home/serge/Pictures/sharp_wallpaper_1920x1200.png
-exec /usr/bin/compton --config /home/serge/.config/i3/compton.conf
+#exec --no-startup-id feh --bg-scale /home/serge/Pictures/sharp_wallpaper_1920x1200.png
+exec /usr/bin/feh --bg-fill ~/.wallpaper/Manhattan_Sunset_by_Giacomo_Ferroni.jpg 
+exec /usr/bin/compton --config /home/serge/.config/i3/compton.Cong
