@@ -227,6 +227,15 @@ bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%
 #bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
 bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-win.png'"
 
+# bindings
+#
+#
+bindsym $mod+m exec emacsclient -c
+bindsym $mod+q [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+bindsym $mod+x exec ~/.config/i3/lock.sh
+exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
+
+
 
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 #
