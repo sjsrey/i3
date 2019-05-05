@@ -236,7 +236,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
  
-#bindsym $mod+r mode "resize"
+#bindsym Control+$mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -252,8 +252,10 @@ for_window [instance="dropdown"] floating enable
 for_window [instance="dropdown"] resize set 625 400
 for_window [instance="dropdown"] move scratchpad
 for_window [instance="dropdown"] border pixel 3
-exec --no-startup-id $term -n dropdown -e tmux
+#exec --no-startup-id $term -n dropdown -e tmux
 
+bindsym $mod+Tab workspace prev
+bindsym $mod+Shift+Tab workspace next
 
 bindsym $mod+u	[instance='dropdown'] scratchpad show
 
@@ -270,6 +272,15 @@ new_window pixel 3
 
 # #----Letter Key Bindings---# #
 
+# Jumping to specific application windows
+bindsym Control$mod+f [class="Firefox"] focus
+bindsym Control$mod+e [class="Emacs"] focus
+bindsym Control+$mod+i [class="Inkscape"] focus
+bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
+bindsym Control+$mod+r [class="St"] focus
+
+
+
 bindsym $mod+b	exec $term -e ranger /home/serge/Dropbox/bibliography/bibtex-pdfs 
 bindsym $mod+c	exec $term -e qalc
 bindsym $mod+e	exec emacs
@@ -277,9 +288,8 @@ bindsym $mod+h	exec $term -e htop
 bindsym $mod+g  exec qgis
 
 bindsym $mod+m  exec emacsclient -c
-bindsym $mod+r	exec $term -e ranger
+bindsym $mod+r	exec $term -t 'ranger' -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
-bindsym $mod+w	exec google-chrome 
 bindsym $mod+x	exec ~/.config/i3/lock.sh
 exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
 
@@ -344,7 +354,7 @@ bindsym $mod+Shift+bracketright exec $bigfor
 # rofi
 #
 bindsym $mod+shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
-#bindsym F4 exec "rofi -show-icons -show window"
+bindsym F4 exec "rofi -show-icons -show window"
 #bindsym $mod+space exec "rofi -show-icons -show window"
 
 #bindsym $m++space exec rofi -show-icons -show window
@@ -387,3 +397,4 @@ for_window [workspace="9"] floating enable
 #exec --no-startup-id feh --bg-scale /home/serge/Pictures/sharp_wallpaper_1920x1200.png
 exec /usr/bin/feh --bg-fill ~/.wallpaper/Manhattan_Sunset_by_Giacomo_Ferroni.jpg 
 exec /usr/bin/compton --config /home/serge/.config/i3/compton.conf
+exec --no-startup-id /home/serge/opt/i3-battery-popup
