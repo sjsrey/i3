@@ -8,6 +8,7 @@
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+focus_follows_mouse yes
 
 set $mod Mod4
 set $m Mod1
@@ -205,6 +206,11 @@ bindsym $mod+Shift+0 move container to workspace 10
 #bindsym $mod+Shift+9 move container to workspace 9
 #bindsym $mod+Shift+0 move container to workspace 10
 
+# move workspace to monitor
+bindsym $mod+Ctrl+greater move workspace to output right
+bindsym $mod+Ctrl+less move workspace to output left
+
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -273,15 +279,17 @@ new_window pixel 3
 # #----Letter Key Bindings---# #
 
 # Jumping to specific application windows
+bindsym Control$mod+c [class="Chromium-browser"] focus
 bindsym Control$mod+f [class="Firefox"] focus
 bindsym Control$mod+e [class="Emacs"] focus
 bindsym Control+$mod+i [class="Inkscape"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
 bindsym Control+$mod+r [class="St"] focus
+bindsym Control+$mod+k [class="Slack"] focus
 
 
 
-bindsym $mod+b	exec $term -e ranger /home/serge/Dropbox/bibliography/bibtex-pdfs 
+bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
 bindsym $mod+c	exec $term -e qalc
 bindsym $mod+e	exec emacs
 bindsym $mod+h	exec $term -e htop
