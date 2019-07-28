@@ -36,7 +36,7 @@ floating_modifier $mod
 bindsym $mod+Return exec $term
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+Shift+x kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+d exec dmenu_run
@@ -230,9 +230,20 @@ bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y
 # bindings
 #
 #
+
 bindsym $mod+m exec emacsclient -c
-bindsym $mod+q [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+bindsym $mod+q exec qalculate
 bindsym $mod+x exec ~/.config/i3/lock.sh
+
+bindsym Control+$mod+f [class="Firefox"] focus
+bindsym Control+$mod+e [class="Emacs"] focus
+bindsym Control+$mod+q [class="Qalculate"] focus
+bindsym Control+$mod+g [class="Gitter"] focus
+bindsym Control+$mod+k [class="spatial@ucr"] focus
+bindsym Control+$mod+t [class="St"] focus
+
+# locking
+
 exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
 
 
@@ -245,7 +256,14 @@ exec --no-startup-id clipit -d
 exec --no-startup-id xsetroot -solid "#333333"
 #exec xinput set-prop 11 286 1
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+exec --no-startup-id /home/serge/.screenlayout/portrait-right.sh
 #
 for_window [workspace="9"] floating enable
 
 bindsym $mod+Shift+b exec $term -e ranger ~/Dropbox/bibliography/bibtex-pdfs
+
+## start greenclip
+exec --no-startup-id /home/serge/bin/greenclip daemon
+bindsym Control+$mod+i exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+
