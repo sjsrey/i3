@@ -279,10 +279,9 @@ new_window pixel 3
 # #----Letter Key Bindings---# #
 
 # Jumping to specific application windows
-bindsym Control$mod+c [class="Chromium-browser"] focus
-bindsym Control$mod+f [class="Firefox"] focus
-bindsym Control$mod+e [class="Emacs"] focus
-bindsym Control+$mod+i [class="Inkscape"] focus
+bindsym Control+$mod+c [class="Chromium-browser"] focus
+bindsym Control+$mod+f [class="Firefox"] focus
+bindsym Control+$mod+e [class="Emacs"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
 bindsym Control+$mod+r [class="St"] focus
 bindsym Control+$mod+k [class="Slack"] focus
@@ -292,6 +291,7 @@ bindsym Control+$mod+k [class="Slack"] focus
 bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
 bindsym $mod+c	exec $term -e qalc
 bindsym $mod+e	exec emacs
+bindsym $mod+n	exec nautilus
 bindsym $mod+h	exec $term -e htop
 bindsym $mod+g  exec qgis
 
@@ -384,7 +384,7 @@ bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 #
 exec --no-startup-id dropbox start -i
-exec --no-startup-id clipit 
+#exec --no-startup-id clipit 
 exec --no-startup-id volumeicon
 exec --no-startup-id xsetroot -solid "#333333"
 #exec xinput set-prop 11 286 1
@@ -406,3 +406,14 @@ for_window [workspace="9"] floating enable
 exec /usr/bin/feh --bg-fill ~/.wallpaper/Manhattan_Sunset_by_Giacomo_Ferroni.jpg 
 exec /usr/bin/compton --config /home/serge/.config/i3/compton.conf
 exec --no-startup-id /home/serge/opt/i3-battery-popup
+
+## Start clipster daemon
+#exec --no-startup-id /home/serge/opt/clipster/clipster -d
+#
+## shortcut to selection widget (primary)
+#bindsym Control+$mod+i exec /home/serge/opt/clipster/clipster -sp
+
+## start greenclip
+exec --no-startup-id /home/serge/bin/greenclip daemon
+bindsym Control+$mod+i exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
