@@ -279,7 +279,7 @@ new_window pixel 3
 # #----Letter Key Bindings---# #
 
 # Jumping to specific application windows
-bindsym Control+$mod+c [class="Chromium-browser"] focus
+bindsym Control+$mod+c [class="Chromium"] focus
 bindsym Control+$mod+f [class="Firefox"] focus
 bindsym Control+$mod+e [class="Emacs"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
@@ -363,6 +363,7 @@ bindsym $mod+Shift+bracketright exec $bigfor
 #
 bindsym $mod+shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
 bindsym F4 exec "rofi -show-icons -show window"
+bindsym $mod+w exec "rofi -show-icons -show window"
 #bindsym $mod+space exec "rofi -show-icons -show window"
 
 #bindsym $m++space exec rofi -show-icons -show window
