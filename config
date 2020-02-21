@@ -35,7 +35,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -10
 # #---Basic Definitions---# #
 #set $term --no-startup-id st -f "Liberation Mono:size=12" 
 exec --no-startup-id /home/serge/bin/syncthing -no-browser
-set $term --no-startup-id st
+set $term --no-startup-id gnome-terminal
+#set $term --no-startup-id st
 #set $term --no-startup-id terminator
 set $stoprec --no-startup-id killall ffmpeg & killall screenkey
 set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
@@ -242,7 +243,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
  
-#bindsym Control+$mod+r mode "resize"
+bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -283,9 +284,8 @@ bindsym Control+$mod+c [class="Chromium"] focus
 bindsym Control+$mod+f [class="Firefox"] focus
 bindsym Control+$mod+e [class="Emacs"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
-bindsym Control+$mod+r [class="St"] focus
-bindsym Control+$mod+k [class="Slack"] focus
-
+bindsym Control+$mod+k [class="Gnome-terminal"] focus
+bindsym Control+$mod+l [class="Slack"] focus
 
 
 bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
@@ -296,12 +296,12 @@ bindsym $mod+h	exec $term -e htop
 bindsym $mod+g  exec qgis
 
 bindsym $mod+m  exec emacsclient -c
-bindsym $mod+r	exec $term -t 'ranger' -e ranger
+#bindsym $mod+r	exec $term -t 'ranger' -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+x	exec ~/.config/i3/lock.sh
 exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
 
-# #----Recording----# #
+#----Recording----#
 bindsym $mod+Print	exec --no-startup-id screenkey
 bindsym $mod+Insert	exec $screencast
 bindsym $mod+Delete	exec $stoprec
