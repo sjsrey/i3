@@ -35,7 +35,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -10
 # #---Basic Definitions---# #
 #set $term --no-startup-id st -f "Liberation Mono:size=12" 
 exec --no-startup-id /home/serge/bin/syncthing -no-browser
-set $term --no-startup-id st
+#set $term --no-startup-id st
+set $term --no-startup-id gnome-terminal --hide-menubar
 #set $term --no-startup-id terminator
 set $stoprec --no-startup-id killall ffmpeg & killall screenkey
 set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
@@ -150,7 +151,7 @@ bindsym $mod+Shift+w layout tabbed
 bindsym $mod+Shift+t layout toggle split
 
 # toggle tiling / floating
-#bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
@@ -280,23 +281,26 @@ new_window pixel 3
 
 # Jumping to specific application windows
 bindsym Control+$mod+c exec wmctrl -a 'Google Chrome'
+bindsym Control+$mod+g exec wmctrl -a "QGIS"
+
 bindsym Control+$mod+f [class="Firefox"] focus
 bindsym Control+$mod+e [class="Emacs"] focus
+bindsym Control+$mod+m [class="org-knopflerfish-framework-BundleThread"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
-bindsym Control+$mod+r [class="St"] focus
+bindsym Control+$mod+r [class="Gnome-terminal"] focus
 bindsym Control+$mod+k [class="Slack"] focus
 
 
 
 bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
 bindsym $mod+c	exec $term -e qalc
-bindsym $mod+e	exec emacs
+#bindsym $mod+e	exec emacs
 bindsym $mod+n	exec nautilus
 bindsym $mod+h	exec $term -e htop
 bindsym $mod+g  exec qgis
 
 bindsym $mod+m  exec emacsclient -c
-bindsym $mod+r	exec $term -t 'ranger' -e ranger
+#bindsym $mod+r	exec $term -t 'ranger' -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+x	exec ~/.config/i3/lock.sh
 exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
@@ -359,6 +363,34 @@ bindsym $mod+Shift+bracketleft exec $bigbak
 bindsym $mod+bracketright exec $lilfor
 bindsym $mod+Shift+bracketright exec $bigfor
 
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
 # rofi
 #
 bindsym $mod+shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
@@ -367,7 +399,7 @@ bindsym $mod+Shift+i exec "rofi -show-icons -show window"
 #bindsym $mod+space exec "rofi -show-icons -show window"
 
 #bindsym $m++space exec rofi -show-icons -show window
-bindsym $mod+Shift+space exec rofi -show-icons -show window
+#bindsym $mod+Shift+space exec rofi -show-icons -show window
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 
 #bindsym $mod+Shift+w exec ~/.dotfiles/menu-surfraw
 bindsym $mod+Shift+b exec ~/.dotfiles/bookmarks-surfraw
@@ -376,11 +408,12 @@ bindsym $mod+Shift+n exec $term --window-with-profile=white -e newsbeuter
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" 
 
 # #----Screenshots----# #
-
-bindsym --release Print exec "scrot -e 'mv $f /home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-desk.png'"
-bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-sel.png'"
+bindsym Print exec flameshot gui
+#bindsym --release Print exec "scrot -e 'mv $f /home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-desk.png'"
+#bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-sel.png'"
+bindsym --release Ctrl+Print exec flameshot gui -d 5000
 #bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
-bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-win.png'"
+#bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-win.png'"
 
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 #
