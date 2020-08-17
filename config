@@ -35,7 +35,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -10
 # #---Basic Definitions---# #
 #set $term --no-startup-id st -f "Liberation Mono:size=12" 
 exec --no-startup-id /home/serge/bin/syncthing -no-browser
-set $term --no-startup-id st
+#set $term --no-startup-id st
+set $term --no-startup-id gnome-terminal --hide-menubar
 #set $term --no-startup-id terminator
 set $stoprec --no-startup-id killall ffmpeg & killall screenkey
 set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
