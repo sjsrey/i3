@@ -35,7 +35,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -10
 # #---Basic Definitions---# #
 #set $term --no-startup-id st -f "Liberation Mono:size=12" 
 exec --no-startup-id /home/serge/bin/syncthing -no-browser
-set $term --no-startup-id st
+#set $term --no-startup-id st
+set $term --no-startup-id gnome-terminal --hide-menubar
 #set $term --no-startup-id terminator
 set $stoprec --no-startup-id killall ffmpeg & killall screenkey
 set $screencast --no-startup-id bash ~/Scripts/screencast_pulse.sh
@@ -280,21 +281,22 @@ new_window pixel 3
 
 # Jumping to specific application windows
 bindsym Control+$mod+c [class="Chromium-browser"] focus
-bindsym Control+$mod+f [class="Firefox"] focus
 bindsym Control+$mod+e [class="Emacs"] focus
+bindsym Control+$mod+f [class="Firefox"] focus
+bindsym Control+$mod+j [class="Gnome-terminal"] focus
+bindsym Control+$mod+k [class="Slack"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
 bindsym Control+$mod+r [class="St"] focus
-bindsym Control+$mod+k [class="Slack"] focus
+bindsym Control+$mod+v [class="Code"] focus
 
 
 
-bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
-bindsym $mod+c	exec $term -e qalc
+bindsym $mod+b	exec $term -e ranger /home/serge/Dropbox/bibliography/bibtex-pdfs 
+bindsym $mod+c	exec qalculate-gtk
 bindsym $mod+e	exec emacs
 bindsym $mod+n	exec nautilus
 bindsym $mod+h	exec $term -e htop
 bindsym $mod+g  exec qgis
-
 bindsym $mod+m  exec emacsclient -c
 bindsym $mod+r	exec $term -t 'ranger' -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
