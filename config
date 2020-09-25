@@ -283,13 +283,16 @@ new_window pixel 3
 bindsym Control+$mod+c [class="Chromium-browser"] focus
 bindsym Control+$mod+f [class="Firefox"] focus
 bindsym Control+$mod+e [class="Emacs"] focus
+bindsym Control+$mod+j [class="Gnome-terminal"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
 bindsym Control+$mod+r [class="St"] focus
 bindsym Control+$mod+k [class="Slack"] focus
+bindsym Control+$mod+v [class="Code"] focus
 
 
 
 bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
+
 bindsym $mod+c	exec $term -e qalc
 bindsym $mod+e	exec emacs
 bindsym $mod+n	exec nautilus
@@ -297,7 +300,8 @@ bindsym $mod+h	exec $term -e htop
 bindsym $mod+g  exec qgis
 
 bindsym $mod+m  exec emacsclient -c
-bindsym $mod+r	exec $term -t 'ranger' -e ranger
+#bindsym $mod+r	exec $term -t 'ranger' -e ranger
+bindsym $mod+r  exec xterm -fa "Ubuntu Mono" -fs 14 -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+x	exec ~/.config/i3/lock.sh
 exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
@@ -363,24 +367,29 @@ bindsym $mod+Shift+bracketright exec $bigfor
 # rofi
 #
 bindsym $mod+shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
-bindsym F4 exec "rofi -show-icons -show window"
+bindsym $mod+w exec "rofi -show-icons -show window"
 #bindsym $mod+space exec "rofi -show-icons -show window"
 
 #bindsym $m++space exec rofi -show-icons -show window
 bindsym $mod+Shift+space exec rofi -show-icons -show window
+bindsym $mod+Ctrl+semicolon exec ~/bin/rofi-surfraw-browser
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 
-#bindsym $mod+Shift+w exec ~/.dotfiles/menu-surfraw
+bindsym F4 exec ~/bin/rofi-surfraw-browser
 bindsym $mod+Shift+b exec ~/.dotfiles/bookmarks-surfraw
 bindsym $mod+Shift+n exec $term --window-with-profile=white -e newsbeuter
 
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" 
 
-# #----Screenshots----# #
+#----Screenshots----# #
 
 bindsym --release Print exec "scrot -e 'mv $f /home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-desk.png'"
-bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-sel.png'"
-#bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
+#bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-sel.png'"
+##bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
 bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-win.png'"
+
+#bindsym --release Print exec "flameshot full"
+bindsym --release Shift+Print exec "flameshot gui"
+bindsym --release $mod+Shift+Print exec "flameshot gui -d 5000"
 
 exec --no-startup-id setxkbmap -option ctrl:nocaps
 #
