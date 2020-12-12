@@ -154,7 +154,7 @@ bindsym $mod+Shift+t layout toggle split
 #bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -255,16 +255,16 @@ mode "resize" {
 # #---Dropdown/Scratchpad Windows---# #
 # First I have a tmux window used for background scripts.
 # I'll later bind this to mod+u.
-for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 625 400
-for_window [instance="dropdown"] move scratchpad
-for_window [instance="dropdown"] border pixel 3
+#for_window [instance="dropdown"] floating enable
+#for_window [instance="dropdown"] resize set 625 400
+#for_window [instance="dropdown"] move scratchpad
+#for_window [instance="dropdown"] border pixel 3
 #exec --no-startup-id $term -n dropdown -e tmux
 
 bindsym $mod+Tab workspace prev
 bindsym $mod+Shift+Tab workspace next
 
-bindsym $mod+u	[instance='dropdown'] scratchpad show
+#bindsym $mod+u	[instance='dropdown'] scratchpad show
 
 # #------gaps------# #
 # i3 gaps
@@ -280,11 +280,13 @@ new_window pixel 3
 # #----Letter Key Bindings---# #
 
 # Jumping to specific application windows
+bindsym Control+$mod+b [class="Zotero"] focus
 bindsym Control+$mod+c [class="Chromium-browser"] focus
 bindsym Control+$mod+f [class="Firefox"] focus
 bindsym Control+$mod+e [class="Emacs"] focus
 bindsym Control+$mod+j [class="Gnome-terminal"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
+bindsym Control+$mod+o [class="obsidian"] focus
 bindsym Control+$mod+r [class="St"] focus
 bindsym Control+$mod+k [class="Slack"] focus
 bindsym Control+$mod+v [class="Code"] focus
@@ -293,13 +295,15 @@ bindsym Control+$mod+v [class="Code"] focus
 
 bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
 
-bindsym $mod+c	exec $term -e qalc
+#bindsym $mod+c	exec $term -e qalc
+bindsym $mod+c	exec --no-startup-id /home/serge/bin/camtoggle
 bindsym $mod+e	exec emacs
 bindsym $mod+n	exec nautilus
 bindsym $mod+h	exec $term -e htop
 bindsym $mod+g  exec qgis
 
 bindsym $mod+m  exec emacsclient -c
+bindsym $mod+space  exec emacsclient -c
 #bindsym $mod+r	exec $term -t 'ranger' -e ranger
 bindsym $mod+r  exec xterm -fa "Ubuntu Mono" -fs 14 -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
@@ -307,9 +311,14 @@ bindsym $mod+x	exec ~/.config/i3/lock.sh
 exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
 
 # #----Recording----# #
-bindsym $mod+Print	exec --no-startup-id screenkey
+#bindsym $mod+Print	exec --no-startup-id screenkey
 bindsym $mod+Insert	exec $screencast
 bindsym $mod+Delete	exec $stoprec
+
+#set $stoprec --no-startup-id ~/scripts/dmenurecord kill
+bindsym $mod+Print exec --no-startup-id ~/.local/bin/dmenurecord
+#bindsym $mod+Delete exec $stoprec
+
 
 # For cmus:
 set $music --no-startup-id st -e cmus
@@ -377,7 +386,7 @@ bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50
 bindsym F4 exec ~/bin/rofi-surfraw-browser
 bindsym $mod+Shift+b exec ~/.dotfiles/bookmarks-surfraw
 bindsym $mod+Shift+n exec $term --window-with-profile=white -e newsbeuter
-
+bindsym F5 exec xterm -hold -e cmus 
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" 
 
 #----Screenshots----# #
@@ -392,6 +401,8 @@ bindsym --release Shift+Print exec "flameshot gui"
 bindsym --release $mod+Shift+Print exec "flameshot gui -d 5000"
 
 exec --no-startup-id setxkbmap -option ctrl:nocaps
+
+exec --no-startup-id /usr/bin/xmodmap /home/serge/.Xmodmap
 #
 exec --no-startup-id dropbox start -i
 #exec --no-startup-id clipit 
@@ -426,4 +437,16 @@ exec --no-startup-id /home/serge/opt/i3-battery-popup
 ## start greenclip
 exec --no-startup-id /home/serge/bin/greenclip daemon
 bindsym Control+$mod+i exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+
+
+# Bindings for the webcam float and stick
+for_window [title="video0 - mpv"] floating enable
+for_window [title="video0 - mpv"] sticky enable
+
+# scratchpad
+exec --no-startup-id st -n=dropdown -e tmux
+for_window [instance="dropdown"] floating enable;
+for_window [instance="dropdown"] move scratchpad; [instance="dropdown"] scratchpad show; move scratchpad
+bindsym $mod+u       [instance="dropdown"] scratchpad show
 
