@@ -196,16 +196,6 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-#bindsym $mod+Shift+1 move container to workspace $programing
-#bindsym $mod+Shift+2 move container to workspace $emacs
-#bindsym $mod+Shift+3 move container to workspace $files
-#bindsym $mod+Shift+4 move container to workspace $web
-#bindsym $mod+Shift+5 move container to workspace $pomo
-#bindsym $mod+Shift+6 move container to workspace 6
-#bindsym $mod+Shift+7 move container to workspace 7
-#bindsym $mod+Shift+8 move container to workspace 8
-#bindsym $mod+Shift+9 move container to workspace 9
-#bindsym $mod+Shift+0 move container to workspace 10
 
 # move workspace to monitor
 bindsym $mod+Ctrl+greater move workspace to output right
@@ -243,7 +233,8 @@ mode "resize" {
         bindsym Escape mode "default"
 }
  
-#bindsym Control+$mod+r mode "resize"
+#bindsym Control+$mod+r mode "resize" 
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -285,10 +276,10 @@ bindsym Control+$mod+c [class="Chromium-browser"] focus
 bindsym Control+$mod+f [class="Firefox"] focus
 bindsym Control+$mod+e [class="Emacs"] focus
 bindsym Control+$mod+j [class="Gnome-terminal"] focus
+#bindsym Control+$mod+k [class="Slack"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
 bindsym Control+$mod+o [class="obsidian"] focus
-bindsym Control+$mod+r [class="St"] focus
-bindsym Control+$mod+k [class="Slack"] focus
+bindsym Control+$mod+k [class="Rocket.Chat"] focus
 bindsym Control+$mod+v [class="Code"] focus
 
 
@@ -296,7 +287,7 @@ bindsym Control+$mod+v [class="Code"] focus
 bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
 
 #bindsym $mod+c	exec $term -e qalc
-bindsym $mod+c	exec --no-startup-id /home/serge/bin/camtoggle
+#bindsym $mod+c	exec --no-startup-id /home/serge/bin/camtoggle
 bindsym $mod+e	exec emacs
 bindsym $mod+n	exec nautilus
 bindsym $mod+h	exec $term -e htop
@@ -382,6 +373,7 @@ bindsym $mod+w exec "rofi -show-icons -show window"
 #bindsym $m++space exec rofi -show-icons -show window
 bindsym $mod+Shift+space exec rofi -show-icons -show window
 bindsym $mod+Ctrl+semicolon exec ~/bin/rofi-surfraw-browser
+bindsym $mod+Ctrl+s exec env XDG_CURRENT_DESKTOP=GNOME gnome-control-center
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 
 bindsym F4 exec ~/bin/rofi-surfraw-browser
 bindsym $mod+Shift+b exec ~/.dotfiles/bookmarks-surfraw
@@ -449,4 +441,8 @@ exec --no-startup-id st -n=dropdown -e tmux
 for_window [instance="dropdown"] floating enable;
 for_window [instance="dropdown"] move scratchpad; [instance="dropdown"] scratchpad show; move scratchpad
 bindsym $mod+u       [instance="dropdown"] scratchpad show
+
+# for obs resizing
+
+bindsym Control+$mod+r resize set 1920 1080 
 
