@@ -453,7 +453,6 @@ bindsym Control+$mod+i exec rofi -modi "clipboard:greenclip print" -show clipboa
 bindsym $mod+t exec /home/serge/.config/rofi/scripts/rofi-org-todo/rofi-org-todo.py
 
 
-
 # Bindings for the webcam float and stick
 for_window [title="video0 - mpv"] floating enable
 for_window [title="video0 - mpv"] sticky enable
