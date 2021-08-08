@@ -11,7 +11,7 @@
 focus_follows_mouse yes
 
 set $mod Mod4
-set $m Mod1
+#set $m Mod1
 
 set $programing  1
 set $emacs   2
@@ -154,7 +154,7 @@ bindsym $mod+Shift+t layout toggle split
 #bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -194,22 +194,27 @@ bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
-
-#bindsym $mod+Shift+1 move container to workspace $programing
-#bindsym $mod+Shift+2 move container to workspace $emacs
-#bindsym $mod+Shift+3 move container to workspace $files
-#bindsym $mod+Shift+4 move container to workspace $web
-#bindsym $mod+Shift+5 move container to workspace $pomo
-#bindsym $mod+Shift+6 move container to workspace 6
-#bindsym $mod+Shift+7 move container to workspace 7
-#bindsym $mod+Shift+8 move container to workspace 8
-#bindsym $mod+Shift+9 move container to workspace 9
 #bindsym $mod+Shift+0 move container to workspace 10
+
 
 # move workspace to monitor
 bindsym $mod+Ctrl+greater move workspace to output right
 bindsym $mod+Ctrl+less move workspace to output left
+
+bindsym $mod+Shift+0 move workspace to output top
+
+# i3 move a workspace to another monitor (multi monitor setup)
+mode "move_workspace" {
+ bindsym Up move workspace to output up
+ bindsym Down move workspace to output down
+ bindsym Left move workspace to output left
+ bindsym Up move workspace to output up
+
+ bindsym Escape mode "default"
+}
+
+bindsym $mod+o mode "move_workspace"
+
 
 
 # reload the configuration file
@@ -243,7 +248,8 @@ mode "resize" {
         bindsym Escape mode "default"
 }
  
-#bindsym Control+$mod+r mode "resize"
+#bindsym Control+$mod+r mode "resize" 
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -255,16 +261,16 @@ mode "resize" {
 # #---Dropdown/Scratchpad Windows---# #
 # First I have a tmux window used for background scripts.
 # I'll later bind this to mod+u.
-for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 625 400
-for_window [instance="dropdown"] move scratchpad
-for_window [instance="dropdown"] border pixel 3
+#for_window [instance="dropdown"] floating enable
+#for_window [instance="dropdown"] resize set 625 400
+#for_window [instance="dropdown"] move scratchpad
+#for_window [instance="dropdown"] border pixel 3
 #exec --no-startup-id $term -n dropdown -e tmux
 
 bindsym $mod+Tab workspace prev
 bindsym $mod+Shift+Tab workspace next
 
-bindsym $mod+u	[instance='dropdown'] scratchpad show
+#bindsym $mod+u	[instance='dropdown'] scratchpad show
 
 # #------gaps------# #
 # i3 gaps
@@ -280,33 +286,50 @@ new_window pixel 3
 # #----Letter Key Bindings---# #
 
 # Jumping to specific application windows
+bindsym Control+$mod+b [class="Zotero"] focus
 bindsym Control+$mod+c [class="Chromium-browser"] focus
 bindsym Control+$mod+e [class="Emacs"] focus
 bindsym Control+$mod+f [class="Firefox"] focus
+bindsym Control+$mod+g [class="Google-chrome"] focus
 bindsym Control+$mod+j [class="Gnome-terminal"] focus
-bindsym Control+$mod+k [class="Slack"] focus
+bindsym Control+$mod+k [class="Rocket.Chat"] focus
+#bindsym Control+$mod+k [class="Slack"] focus
+bindsym Control+$mod+m [class="org.knop"] focus
 bindsym Control+$mod+n [class="Org.gnome.Nautilus"] focus
-bindsym Control+$mod+r [class="St"] focus
+bindsym Control+$mod+o [class="obsidian"] focus
+bindsym Control+$mod+p [class="Evince"] focus
+bindsym Control+$mod+q [class="QGIS"] focus
+bindsym Control+$mod+t [class="Terminator"] focus
 bindsym Control+$mod+v [class="Code"] focus
 
 
 
-bindsym $mod+b	exec $term -e ranger /home/serge/Dropbox/bibliography/bibtex-pdfs 
-bindsym $mod+c	exec qalculate-gtk
+bindsym $mod+b	exec $term -e ranger /home/serge/Documents/bibliography/bibtex-pdfs 
+
+#bindsym $mod+c	exec $term -e qalc
+#bindsym $mod+c	exec --no-startup-id /home/serge/bin/camtoggle
 bindsym $mod+e	exec emacs
 bindsym $mod+n	exec nautilus
 bindsym $mod+h	exec $term -e htop
 bindsym $mod+g  exec qgis
+
 bindsym $mod+m  exec emacsclient -c
-bindsym $mod+r	exec $term -t 'ranger' -e ranger
+bindsym $mod+space  exec emacsclient -c
+#bindsym $mod+r	exec $term -t 'ranger' -e ranger
+bindsym $mod+r  exec xterm -fa "Ubuntu Mono" -fs 14 -e ranger
 bindsym $mod+q  [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
 bindsym $mod+x	exec ~/.config/i3/lock.sh
 exec xautolock -time 15 -locker '~/.config/i3/lock.sh' &
 
 # #----Recording----# #
-bindsym $mod+Print	exec --no-startup-id screenkey
+#bindsym $mod+Print	exec --no-startup-id screenkey
 bindsym $mod+Insert	exec $screencast
 bindsym $mod+Delete	exec $stoprec
+
+#set $stoprec --no-startup-id ~/scripts/dmenurecord kill
+bindsym $mod+Print exec --no-startup-id ~/.local/bin/dmenurecord
+#bindsym $mod+Delete exec $stoprec
+
 
 # For cmus:
 set $music --no-startup-id st -e cmus
@@ -364,26 +387,34 @@ bindsym $mod+Shift+bracketright exec $bigfor
 # rofi
 #
 bindsym $mod+shift+d exec "rofi -show-icons -modi combi -show combi -combi-modi run,drun"
-bindsym F4 exec "rofi -show-icons -show window"
+bindsym $mod+w exec "rofi -show-icons -show window"
 #bindsym $mod+space exec "rofi -show-icons -show window"
 
 #bindsym $m++space exec rofi -show-icons -show window
 bindsym $mod+Shift+space exec rofi -show-icons -show window
+bindsym $mod+Ctrl+semicolon exec ~/bin/rofi-surfraw-browser
+bindsym $mod+Ctrl+s exec env XDG_CURRENT_DESKTOP=GNOME gnome-control-center
 bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 50 
-#bindsym $mod+Shift+w exec ~/.dotfiles/menu-surfraw
+bindsym F4 exec ~/bin/rofi-surfraw-browser
 bindsym $mod+Shift+b exec ~/.dotfiles/bookmarks-surfraw
 bindsym $mod+Shift+n exec $term --window-with-profile=white -e newsbeuter
-
+#bindsym F5 exec xterm -hold -e cmus 
 #bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 300 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" 
 
-# #----Screenshots----# #
+#----Screenshots----# #
 
 bindsym --release Print exec "scrot -e 'mv $f /home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-desk.png'"
-bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-sel.png'"
-#bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
+#bindsym --release Shift+Print exec "scrot -s '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-sel.png'"
+##bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%s_%H%M_%d%m%Y_$wx$h.png'"
 bindsym --release Ctrl+Print exec "scrot -u '/home/serge/Pictures/Screenshots/%Y-%m-%d-%H%M-%s-win.png'"
 
+#bindsym --release Print exec "flameshot full"
+bindsym --release Shift+Print exec "flameshot gui"
+bindsym --release $mod+Shift+Print exec "flameshot gui -d 5000"
+
 exec --no-startup-id setxkbmap -option ctrl:nocaps
+
+exec --no-startup-id /usr/bin/xmodmap /home/serge/.Xmodmap
 #
 exec --no-startup-id dropbox start -i
 #exec --no-startup-id clipit 
@@ -419,3 +450,24 @@ exec --no-startup-id /home/serge/opt/i3-battery-popup
 exec --no-startup-id /home/serge/bin/greenclip daemon
 bindsym Control+$mod+i exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
+bindsym $mod+t exec /home/serge/.config/rofi/scripts/rofi-org-todo/rofi-org-todo.py
+
+
+
+# Bindings for the webcam float and stick
+for_window [title="video0 - mpv"] floating enable
+for_window [title="video0 - mpv"] sticky enable
+
+# scratchpad
+exec --no-startup-id st -n=dropdown -e tmux
+for_window [instance="dropdown"] floating enable;
+for_window [instance="dropdown"] move scratchpad; [instance="dropdown"] scratchpad show; move scratchpad
+bindsym $mod+u       [instance="dropdown"] scratchpad show
+
+# for obs resizing
+
+bindsym Control+$mod+r resize set 1920 1080
+#bindsym XF86MonBrightnessUp exec "espeak-ng test"
+
+bindsym XF86MonBrightnessUp exec xrandr --output eDP-1 --brightness 1.0
+bindsym XF86MonBrightnessDown exec xrandr --output eDP-1 --brightness 0.7
